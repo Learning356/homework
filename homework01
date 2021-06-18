@@ -1,0 +1,36 @@
+//leetcode 26 easy
+//leetcode 链接： https://leetcode-cn.com/problems/merge-sorted-array/
+//code
+
+ 
+      
+class Solution {
+public:
+// we use two pointer to iterate all elements in the vector
+// if it is  the same number, move the second pointer to next, kep first still
+// if two numbers do not matched, the place the second num in front the first num, increment the first and second
+
+    int removeDuplicates(vector<int>& nums) {
+        
+        int len = nums.size();
+        
+        if(len == 0) return 0; //if empty return 0
+        //first pointer
+        int first = 0;
+        //second pointer
+        int last = 1;
+        //interate all 
+        while(last != len){
+            if(nums[first] == nums[last]) ++last; // add sec pter
+            else { nums[first+1] = nums[last]; ++first; ++last;  // add sec pter }
+
+
+        }
+
+        ++first; // because first only represent the index num ; add one 
+
+
+        return first;
+
+    }
+}; 
