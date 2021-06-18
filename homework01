@@ -34,3 +34,60 @@ public:
 
     }
 }; 
+
+
+
+//==========================================================分割线======================================================================
+
+
+//leetcode 88 easy
+//leetcode 链接： https://leetcode.com/problems/merge-sorted-array/submissions/
+//code
+
+
+//iterate backwards
+//change each elements via compare each end points
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        
+        int nums = m + n - 1;
+        int num1 = m - 1;
+        int num2 = n - 1;
+        //if nums2 or all are empty return
+        if(nums<0 || n == 0) return ;
+        // if only nums1 is empty return nums2
+        if(m == 0) {nums1 = nums2; return ;}
+        
+        //iterate all nums1 from behind
+        for(int i = nums; i>=0;i--){
+            if(nums1[num1] >= nums2[num2]){
+                nums1[i] = nums1[num1];
+                num1--;
+            }
+            else{
+                nums1[i] = nums2[num2];
+                num2--;
+            }
+            //either nums1 or nums2 's element are used, we break
+            if(num1 == -1 || num2 == -1) break;
+            
+        }
+        
+        // if( num2 are longer, copy all remaining numbers in nums2 into nums2's begining 
+        if(num1 == -1 && num2 != -1){
+            for(int i = 0; i <= num2; i++) nums1[i] = nums2[i];
+        } 
+        
+        
+        
+    }
+};
+
+
+
+//==========================================================分割线======================================================================
+
+
+
