@@ -35,7 +35,8 @@ public:
     }
 }; 
 
-
+///Time Complexity: O(n)
+///Space Complexity: O(1)
 
 //==========================================================分割线======================================================================
 
@@ -85,9 +86,337 @@ public:
     }
 };
 
-
+///Time Complexity: O(n)
+///Space Complexity: O(1)
 
 //==========================================================分割线======================================================================
+//leetcode 206 medium
+//leetcode 链接： https://leetcode-cn.com/problems/reverse-linked-list/
+//code
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* dummyhead = new ListNode(0,head);
+        ListNode* prehead = dummyhead;
+        if(head == nullptr)  return head;
+        while(head != nullptr){
+             dummyhead->next = head->next;
+            if(prehead == dummyhead) head->next = nullptr;
+            else head->next = prehead;
+            prehead = head;
+            head = dummyhead->next;
+            
+            
+            
+        }
+        
+        return prehead;
+        
+    }
+};
+///Time Complexity: O(n)
+///Space Complexity: O(1)
+
+
+//===============================================分割线=======================================================================================
+//leetcode 641 medium
+//leetcode 链接： https://leetcode.com/problems/design-circular-deque/
+//code
+
+class MyCircularDeque {
+public:
+    /** Initialize your data structure here. Set the size of the deque to be k. */
+    int* deque;
+    int front = 0;
+    int rear = 0;
+    int size = 0;
+    int cap = 0;
+    MyCircularDeque(int k) {
+        cap = k;
+        deque = new int[k];
+    }
+    
+    /** Adds an item at the front of Deque. Return true if the operation is successful. */
+    bool insertFront(int value) {
+        if(cap && !isFull()){
+        if(!isEmpty()) {
+            front = (front == 0) ? cap - 1 : front - 1;
+        }
+        deque[front] = value;
+        size++;
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /** Adds an item at the rear of Deque. Return true if the operation is successful. */
+    bool insertLast(int value) {
+        if(cap && !isFull()){
+        if(!isEmpty()) {
+            rear = (rear == cap-1) ? 0 : rear + 1;
+        }
+        deque[rear] = value;
+        size++;
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    /** Deletes an item from the front of Deque. Return true if the operation is successful. */
+    bool deleteFront() {
+     
+        if(!isEmpty()){
+            --size;
+            if(size == 0){ front = 0; rear=0;}
+            else {
+                front = (front == cap-1)? 0 : front + 1;
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+    bool deleteLast() {
+         if(!isEmpty()){
+            --size;
+            if(size == 0){ front = 0; rear=0; }
+            else {
+                rear = (rear == 0)? cap - 1 : rear - 1;
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /** Get the front item from the deque. */
+    int getFront() {
+        if(isEmpty()) return -1;
+        return deque[front];
+    }
+    
+    /** Get the last item from the deque. */
+    int getRear() {
+        if(isEmpty()) return -1;
+        return deque[rear];
+        
+    }
+    
+    /** Checks whether the circular deque is empty or not. */
+    bool isEmpty() {
+        
+        return size == 0;
+    }
+    
+    /** Checks whether the circular deque is full or not. */
+    bool isFull() {
+        
+        
+        return size == cap;
+        
+    }
+};
+
+
+//===============================================分割线=======================================================================================
+//leetcode 641 medium
+//leetcode 链接： https://leetcode.com/problems/design-circular-deque/
+//code
+class MyCircularDeque {
+public:
+    /** Initialize your data structure here. Set the size of the deque to be k. */
+    int* deque;
+    int front = 0;
+    int rear = 0;
+    int size = 0;
+    int cap = 0;
+    MyCircularDeque(int k) {
+        cap = k;
+        deque = new int[k];
+    }
+    
+    /** Adds an item at the front of Deque. Return true if the operation is successful. */
+    bool insertFront(int value) {
+        if(cap && !isFull()){
+        if(!isEmpty()) {
+            front = (front == 0) ? cap - 1 : front - 1;
+        }
+        deque[front] = value;
+        size++;
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /** Adds an item at the rear of Deque. Return true if the operation is successful. */
+    bool insertLast(int value) {
+        if(cap && !isFull()){
+        if(!isEmpty()) {
+            rear = (rear == cap-1) ? 0 : rear + 1;
+        }
+        deque[rear] = value;
+        size++;
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    /** Deletes an item from the front of Deque. Return true if the operation is successful. */
+    bool deleteFront() {
+     
+        if(!isEmpty()){
+            --size;
+            if(size == 0){ front = 0; rear=0;}
+            else {
+                front = (front == cap-1)? 0 : front + 1;
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+    bool deleteLast() {
+         if(!isEmpty()){
+            --size;
+            if(size == 0){ front = 0; rear=0; }
+            else {
+                rear = (rear == 0)? cap - 1 : rear - 1;
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /** Get the front item from the deque. */
+    int getFront() {
+        if(isEmpty()) return -1;
+        return deque[front];
+    }
+    
+    /** Get the last item from the deque. */
+    int getRear() {
+        if(isEmpty()) return -1;
+        return deque[rear];
+        
+    }
+    
+    /** Checks whether the circular deque is empty or not. */
+    bool isEmpty() {
+        
+        return size == 0;
+    }
+    
+    /** Checks whether the circular deque is full or not. */
+    bool isFull() {
+        
+        
+        return size == cap;
+        
+    }
+};
+
+/**
+ * Your MyCircularDeque object will be instantiated and called as such:
+ * MyCircularDeque* obj = new MyCircularDeque(k);
+ * bool param_1 = obj->insertFront(value);
+ * bool param_2 = obj->insertLast(value);
+ * bool param_3 = obj->deleteFront();
+ * bool param_4 = obj->deleteLast();
+ * int param_5 = obj->getFront();
+ * int param_6 = obj->getRear();
+ * bool param_7 = obj->isEmpty();
+ * bool param_8 = obj->isFull();
+ */
+//===============================================分割线=======================================================================================
+//leetcode 25 hard
+//leetcode 链接： https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+//code
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        
+        ListNode* dummy = new ListNode(0,head);
+        ListNode* end = dummy;
+        ListNode* prehead = nullptr;
+        ListNode* Res;
+       while(end != nullptr){
+           
+           end = get_end_node(end,k);
+           if(end == nullptr) break;
+           if(prehead == nullptr) Res = end;
+           head =  reverseList(prehead, head, end);
+           prehead = dummy->next;
+           dummy->next = head;
+           end = dummy;
+          // dummy = reverseList(prehead, dummy,end);
+           //if(prehead == nullptr) head = end;
+          // if(end != nullptr) end->val = 0;
+           //break;
+           
+       }
+        return Res;
+        
+    }
+   ListNode* reverseList(ListNode* last_Group_tail, ListNode* head, ListNode* end) {
+       
+       ListNode* next_group_head = end->next;
+       ListNode* backward_node = end->next; 
+       ListNode* forward_node = head;
+       while(forward_node != next_group_head){
+           
+           head = forward_node->next;
+           forward_node->next = backward_node;
+           backward_node = forward_node;
+           forward_node = head;
+           
+       }
+       if(last_Group_tail != nullptr) {  last_Group_tail->next = end; }
+     
+       
+        return next_group_head;
+        
+        
+    }
+    
+    ListNode* get_end_node(ListNode* node,int k){
+        
+        for(int i=0; i<k; i++){
+            node = node->next;
+            if(node == nullptr) return nullptr;
+        }
+        
+        return node;
+        
+    }
+};
 
 
 
