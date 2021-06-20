@@ -1,8 +1,8 @@
 //leetcode 26 easy
-//leetcode 链接： https://leetcode-cn.com/problems/merge-sorted-array/
+//leetcode 去重
 //code
 
- 
+
       
 class Solution {
 public:
@@ -45,7 +45,7 @@ public:
 
 
 //leetcode 88 easy
-//leetcode 链接： https://leetcode.com/problems/merge-sorted-array/submissions/
+ //合并有序数组
 //code
 
 
@@ -93,7 +93,7 @@ public:
 ///Space Complexity: O(1)
 
 //==========================================================分割线======================================================================
-//leetcode 206 medium
+//leetcode 206 medium 反转链表
 //leetcode 链接： https://leetcode-cn.com/problems/reverse-linked-list/
 //code
 /**
@@ -132,7 +132,7 @@ public:
 
 
 //===============================================分割线=======================================================================================
-//leetcode 641 medium
+//leetcode 641 medium  双端队列
 //leetcode 链接： https://leetcode.com/problems/design-circular-deque/
 //code
 
@@ -531,4 +531,94 @@ public:
         return dummy.next;
     }
 };
+ //===============================================分割线=======================================================================================
+//leetcode 53 easy
+//leetcode 链接：https://leetcode.com/problems/maximum-subarray/
+//code
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+         int res = INT_MIN, curSum = 0;
+        for (int num : nums) {
+            curSum = max(curSum + num, num);
+            res = max(res, curSum);
+        }
+        return res;
+     
+    }
+};
+//===============================================分割线=======================================================================================
+//leetcode 304 medium Range Sum Query 2D - Immutable
+//leetcode 链接：https://leetcode.com/problems/range-sum-query-2d-immutable/
+//code
+class NumMatrix {
+private:
+    vector<vector<int>> mymatrix;
+public:
+    
+    NumMatrix(vector<vector<int>>& matrix) {
+        int total = 0;
+        
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<matrix[i].size();j++){
+                if(i == 0 && j == 0) continue;
+                if(i == 0 && j) matrix[0][j] += matrix[0][j-1];
+                if(i && j == 0) matrix[i][0] += matrix[i-1][0];
+                if(i && j) matrix[i][j] = matrix[i][j] + matrix[i-1][j] +  matrix[i][j-1] - matrix[i-1][j-1];
+                
+            }
+        }
+        mymatrix = matrix;
+        
+        
+    }
+  
+    
+    int sumRegion(int row1, int col1, int row2, int col2) {
+       
+        if(row1==0 && col1==0)  return mymatrix[row2][col2];
+        if(row1 == 0 && col1)  return mymatrix[row2][col2] - mymatrix[row2][col1-1];
+        if(row1 && col1 == 0)  return mymatrix[row2][col2] - mymatrix[row1-1][col2];
+        
+        return mymatrix[row2][col2] - mymatrix[row2][col1-1] - mymatrix[row1-1][col2] + mymatrix[row1-1][col1-1];
+    }
+};
 
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix* obj = new NumMatrix(matrix);
+ * int param_1 = obj->sumRegion(row1,col1,row2,col2);
+ */
+ 
+ //===============================================分割线=======================================================================================
+//leetcode 1109. Corporate Flight BookingsMedium
+//leetcode 链接：https://leetcode.com/problems/corporate-flight-bookings/
+//code
+class Solution {
+public:
+    vector<int> corpFlightBookings(vector<vector<int>>& bookings, int n) {
+        vector<int> ans(n);
+        
+        for(int i =0; i < bookings.size(); i++){
+                if(bookings[i][0] == 1) ans[0] += bookings[i][2];
+                else ans[bookings[i][0] - 1] += bookings[i][2];
+                
+                if( bookings[i][1] == n) { continue; }
+                else { ans[bookings[i][1] ] -= bookings[i][2];}
+                //cout << bookings[i][0] ;
+            
+            
+        }
+        
+        for(int i = 0; i<ans.size();i++){
+            if(i){
+                ans[i] += ans[i-1];
+            }
+            
+        }
+        return ans;
+        
+        
+    }
+};
+ 
